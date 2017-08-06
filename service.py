@@ -8,7 +8,7 @@ import boto3
 
 
 # Version of Terraform that we're using
-TERRAFORM_VERSION = '0.8.5'
+TERRAFORM_VERSION = '0.10.0'
 
 # Download URL for Terraform
 TERRAFORM_DOWNLOAD_URL = (
@@ -29,8 +29,12 @@ def check_call(args):
         stderr=subprocess.PIPE,
         cwd='/tmp')
     stdout, stderr = proc.communicate()
+    
+    # Print the standard output always.
+    print(stdout)
+
+    # If an error occurred, then print that information as well.
     if proc.returncode != 0:
-        print(stdout)
         print(stderr)
         raise subprocess.CalledProcessError(
             returncode=proc.returncode,
